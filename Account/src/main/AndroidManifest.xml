@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.yynet.un">
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true"
+       >
+        <activity android:name=".AddItemActivity"/>
+        <activity
+            android:name=".AddDescription"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/title_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y96"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y60"
+            android:src="@drawable/about_back"
+            android:id="@+id/about_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="关于"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/x220"
+        android:layout_height="@dimen/y220"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y80"
+        android:src="@mipmap/ic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y24"
+        android:textSize="30sp"
+        android:text="@string/app_name"
+        android:id="@+id/textView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="@dimen/y20"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/about_content"
+        android:layout_marginLeft="@dimen/x48"
+        android:layout_marginRight="@dimen/x48"
+        android:text="@string/about_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/about_lianxi"
+        android:layout_above="@+id/about_email_content"
+        android:layout_marginTop="@dimen/y58"
+        android:textSize="20sp"
+        android:layout_marginLeft="@dimen/x280"
+        android:text="@string/about_email_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/about_version"
+        android:layout_marginTop="@dimen/y16"
+        android:textSize="19sp"
+        android:layout_marginLeft="@dimen/x170"
+        android:layout_marginBottom="@dimen/y70"
+        android:id="@+id/about_email_content"
+        android:text="@string/about_email_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/about_version"
+        android:layout_marginBottom="@dimen/y20"
+        android:text="@string/about_version"
+        android:textSize="13sp"/>
+</RelativeLayout>

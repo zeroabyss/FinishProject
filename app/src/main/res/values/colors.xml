@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="tab_background">#F5F5F5</color>
+    <color name="tab_text_normal">#4A4A4A</color>
+    <color name="tab_text_selected">#DDC096</color>
+
+    //自定义title的背景颜色
+    <color name="title_background">#DDC096</color>
+    <color name="note_add_title_text_color">#765640</color>
+    <color name="note_add_richtext_background">#F3EFED</color>
+
+
+    //note_recycler
+    <color name="recyler_background">#F3EFED</color>
+    <color name="recycler_title_color">#A69283</color>
+    <color name="recycler_content_color">#B1A6A2</color>
+
+    //note_add_activity
+    <color name="note_add_recorder_background">#ABABAB</color>
+
+    //note_fragment
+    <color name="note_fragment_background">#F3EFED</color>
+
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="MoneyCount"></dbname>
+    <version value="1"></version>
+    <list>
+        <mapping class="com.yynet.un.db.AccountDB"/>
+        <mapping class="com.yynet.un.db.Sum"/>
+    </list>
+</litepal>

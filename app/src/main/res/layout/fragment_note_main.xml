@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/note_fragment_background"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/title_background"
+        android:layout_height="@dimen/y96">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备忘录"
+            android:layout_centerVertical="true"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="@dimen/x55"
+            android:textSize="@dimen/y45"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y63"
+            android:textSize="@dimen/y49"
+            android:text="@string/fragment_note_all"
+            android:id="@+id/note_all_button"
+            android:textColor="#FFFFFF"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:layout_marginRight="@dimen/x103"
+            />
+        <Button
+            android:background="@drawable/menu_add"
+            android:id="@+id/note_fragment_add"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/x63"
+            android:layout_height="@dimen/y63"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/y7"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y70"
+        android:background="@drawable/note_search_shape"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/note_fragment_search_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:text="搜索:"
+            android:layout_marginLeft="@dimen/x5"
+            android:textColor="@color/recycler_title_color"
+            android:textSize="@dimen/y40"/>
+
+        <EditText
+            android:id="@+id/note_fragment_search_edit"
+            android:layout_width="@dimen/x395"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:maxLines="1"
+            android:textColor="@color/recycler_title_color"
+            android:textSize="@dimen/y40"/>
+
+        <ImageButton
+
+            android:id="@+id/note_fragment_search_button"
+            android:layout_width="@dimen/x63"
+            android:layout_height="@dimen/y63"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:src="@drawable/ic_note_search"
+            />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/note_recycler">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

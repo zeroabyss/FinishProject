@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="FinishProject"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.example.aiy.finishproject.db.NoteDB"/>
+        <mapping class="com.yynet.un.db.AccountDB"/>
+        <mapping class="com.yynet.un.db.Sum"/>
+    </list>
+</litepal>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.aiy.finishproject.view.activity.GestureLockActivity">
+    <RelativeLayout
+        android:background="@color/title_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y96"
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y60"
+            android:src="@drawable/about_back"
+            android:id="@+id/about_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="手势解锁"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x30"
+            android:textSize="@dimen/y40"
+            android:text="@string/lock_activity_text"/>
+        <com.suke.widget.SwitchButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_alignParentRight="true"
+            android:id="@+id/switchbutton"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="#B3B3B3"
+        android:layout_height="1dp"/>
+    <!--设置手势解锁时提示view-->
+    <com.example.aiy.finishproject.lock.GestureLockDisplayView
+        android:id="@+id/l_display_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_setting_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="绘制解锁图案"/>
+
+    <!--手势解锁view-->
+    <com.example.aiy.finishproject.lock.GestureLockLayout
+        android:id="@+id/l_gesture_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+    </com.example.aiy.finishproject.lock.GestureLockLayout>
+</LinearLayout>
