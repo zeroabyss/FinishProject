@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,18 +26,19 @@ import android.widget.TextView;
 
 import com.example.aiy.finishproject.Base.BaseActivity;
 import com.example.aiy.finishproject.R;
-import com.example.aiy.finishproject.bdasr.IRecogListener;
-import com.example.aiy.finishproject.bdasr.MessageStatusRecogListener;
-import com.example.aiy.finishproject.bdasr.MyRecognizer;
+
 import com.example.aiy.finishproject.db.NoteDB;
 import com.example.aiy.finishproject.manager.NoteManager;
 import com.example.aiy.finishproject.manager.PlayerManager;
 import com.example.aiy.finishproject.manager.RecordManager;
 import com.example.aiy.finishproject.util.CommonUtil;
-import com.example.aiy.finishproject.util.LoggerUtils;
+import com.example.commonlib.util.LoggerUtils;
 import com.example.aiy.finishproject.util.SDCardUtil;
 import com.example.aiy.finishproject.util.StringUtils;
 import com.example.aiy.finishproject.view.fragment.ShowDialogFragment;
+import com.example.commonlib.bdasr.IRecogListener;
+import com.example.commonlib.bdasr.MessageStatusRecogListener;
+import com.example.commonlib.bdasr.MyRecognizer;
 import com.scrat.app.richtext.RichEditText;
 
 import java.io.File;
@@ -63,7 +63,7 @@ import me.leefeng.promptlibrary.PromptButton;
 import me.leefeng.promptlibrary.PromptButtonListener;
 import me.leefeng.promptlibrary.PromptDialog;
 
-import static com.example.aiy.finishproject.bdasr.IStatus.STATUS_FINISHED;
+import static com.example.commonlib.bdasr.IStatus.STATUS_FINISHED;
 import static com.example.aiy.finishproject.util.FileUtils.readFile;
 import static com.example.aiy.finishproject.util.SDCardUtil.APP_NAME;
 import static com.example.aiy.finishproject.util.SDCardUtil.SDCardRoot;

@@ -1,5 +1,6 @@
 package com.yynet.un;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,9 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.commonlib.util.LoggerUtils;
 import com.yynet.un.db.AccountDB;
 import com.yynet.un.db.Sum;
 
+import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
 import java.text.DecimalFormat;
@@ -25,7 +28,8 @@ import java.util.Date;
 
 public class AddItemActivity extends AppCompatActivity {
     private static final String TAG = "AddItemActivity";
-
+    public static final String EDIT_DB="edit_db";
+    public static final String EDIT_MODEL="edit_model";
     private FragmentManager manager;
     private FragmentTransaction transaction;
 
@@ -46,6 +50,12 @@ public class AddItemActivity extends AppCompatActivity {
     private SimpleDateFormat formatItem = new SimpleDateFormat("yyyy.MM.dd");
     private SimpleDateFormat formatSum  = new SimpleDateFormat("yyyy.MM");
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+    private boolean isEditModel;
+    private int mType;
+
+    private double mLastMoney;
+    private int mLastType;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,17 +83,54 @@ public class AddItemActivity extends AppCompatActivity {
         bannerImage = (ImageView) findViewById(R.id.chosen_image);
 
         moneyText = (TextView) findViewById(R.id.input_money_text);
-        // 及时清零
-        moneyText.setText("0.00");
-
         manager = getSupportFragmentManager();
-
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.item_fragment, new CostFragment());
+
+        isEditModel=getIntent().getBooleanExtra(EDIT_MODEL,false);
+        if (isEditModel){
+            initEditModel();
+
+        }else {
+            // 及时清零
+            moneyText.setText("0.00");
+            transaction.replace(R.id.item_fragment, CostFragment.newInstance());
+        }
+
         transaction.commit();
 
     }
 
+    private void initEditModel(){
+        AccountDB db= (AccountDB) getIntent().getSerializableExtra(EDIT_DB);
+        GlobalVariables.setmId(db.getId());
+        String s=Double.toString(db.getMoney());
+        mLastMoney=db.getMoney();
+        mLastType=db.getType();
+        GlobalVariables.setmInputMoney(s);
+        GlobalVariables.setmDescription(db.getDescription());
+        GlobalVariables.setmDate(db.getTimeStamp());
+        moneyText.setText(s);
+        mType=db.getType();
+        if (s.contains(".")) GlobalVariables.setHasDot(true);
+
+        if (mType==IOItemAdapter.TYPE_COST)
+            transaction.replace(R.id.item_fragment, CostFragment.newInstance(db.getSrcName()));
+        else{
+            addEarnBtn.setTextColor(0xffff8c00); // 设置“收入“按钮为灰色
+            addCostBtn.setTextColor(0xff908070); // 设置“支出”按钮为橙色
+            transaction.replace(R.id.item_fragment,EarnFragment.newInstance(db.getSrcName()));
+        }
+    }
+
+
+    public static void newInstance(Context context,AccountDB db){
+        Intent intent=new Intent(context,AddItemActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(EDIT_DB,db);
+        bundle.putBoolean(EDIT_MODEL,true);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -92,18 +139,24 @@ public class AddItemActivity extends AppCompatActivity {
             if (id==R.id.add_cost_button){
                 addCostBtn.setTextColor(0xffff8c00); // 设置“支出“按钮为灰色
                 addEarnBtn.setTextColor(0xff908070); // 设置“收入”按钮为橙色
-                transaction.replace(R.id.item_fragment, new CostFragment());
+                transaction.replace(R.id.item_fragment, CostFragment.newInstance());
                 Log.d(TAG, "onClick: add_cost_button");
             }else if(id==R.id.add_earn_button) {
                  addEarnBtn.setTextColor(0xffff8c00); // 设置“收入“按钮为灰色
                  addCostBtn.setTextColor(0xff908070); // 设置“支出”按钮为橙色
-                 transaction.replace(R.id.item_fragment, new EarnFragment());
+                 transaction.replace(R.id.item_fragment, EarnFragment.newInstance());
                  Log.d(TAG, "onClick: add_earn_button");
              }else if(R.id.add_finish==id) {
                 String moneyString = moneyText.getText().toString();
-                if (moneyString.equals("0.00") || GlobalVariables.getmInputMoney().equals(""))
+                if (moneyString.equals("0.00") || GlobalVariables.getmInputMoney().equals("")) {
                     Toast.makeText(getApplicationContext(), getString(R.string.AddItemActivity_toast_text), Toast.LENGTH_SHORT).show();
-                else {
+                    return;
+                }
+                if(isEditModel) {
+                    updateData(Double.parseDouble(moneyText.getText().toString()));
+                    calculatorClear();
+                    finish();
+                }else {
                     putItemInData(Double.parseDouble(moneyText.getText().toString()));
                     calculatorClear();
                     finish();
@@ -117,6 +170,45 @@ public class AddItemActivity extends AppCompatActivity {
             }
             transaction.commit();
         }
+    }
+    public void updateData(double money){
+        AccountDB db=new AccountDB();
+        db.setMoney(money);
+        db.setDescription(GlobalVariables.getmDescription());
+        db.setSrcName((String) bannerText.getTag());
+        int tagType= (int) bannerImage.getTag();
+        if (tagType<0){
+            db.setType(IOItemAdapter.TYPE_COST);
+        }else db.setType(IOItemAdapter.TYPE_EARN);
+        db.setName(bannerText.getText().toString());
+        db.update(GlobalVariables.getmId());
+
+        Sum sumAll=DataSupport.find(Sum.class,1);
+        double total=sumAll.getTotal();
+        total+=-(mLastMoney*mLastType);
+        total+=money*db.getType();
+        sumAll.setTotal(total);
+        sumAll.save();
+
+        Sum earnSum=DataSupport.find(Sum.class,IOItemAdapter.MONTHLY_EARN);
+        Sum costSum=DataSupport.find(Sum.class,IOItemAdapter.MONTHLY_COST);
+
+        if (GlobalVariables.getmDate().substring(0,7).equals(costSum.getDate())){
+            if (IOItemAdapter.TYPE_COST==mLastType)
+                costSum.setTotal(costSum.getTotal()-mLastMoney);
+            else
+                earnSum.setTotal(earnSum.getTotal()-mLastMoney);
+
+            if (IOItemAdapter.TYPE_COST==db.getType())
+                costSum.setTotal(costSum.getTotal()+money);
+            else
+                earnSum.setTotal(earnSum.getTotal()+money);
+
+            costSum.save();
+            earnSum.save();
+
+        }
+
     }
 
     public void putItemInData(double money) {
@@ -195,5 +287,17 @@ public class AddItemActivity extends AppCompatActivity {
             GlobalVariables.setmInputMoney(GlobalVariables.getmInputMoney()+".");
             GlobalVariables.setHasDot(true);
         }
+    }
+    public double checkTypeNum(double num,int type){
+        if (type==IOItemAdapter.TYPE_EARN) return num;
+        else return -num;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GlobalVariables.setmInputMoney("");
+        GlobalVariables.setHasDot(false);
+        GlobalVariables.setmDescription("");
+        GlobalVariables.setmDate("");
     }
 }

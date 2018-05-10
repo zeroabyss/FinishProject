@@ -6,9 +6,10 @@ import com.yynet.un.AccountingFragment;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
 
 
-public class AccountDB extends DataSupport {
+public class AccountDB extends DataSupport implements Serializable{
 
     private int id;
     private int type;                       // 收入还支出

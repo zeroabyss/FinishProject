@@ -7,6 +7,15 @@ public class GlobalVariables {
     private static boolean mHasDot = false;
     private static String mInputMoney = "";
     private static String mDescription = "";
+    private static int mId=0;
+
+    public static int getmId() {
+        return mId;
+    }
+
+    public static void setmId(int mId) {
+        GlobalVariables.mId = mId;
+    }
 
     public static void setmDate(String date)      { mDate = date;     }
     public static void setHasDot(boolean hasDot)  { mHasDot = hasDot; }

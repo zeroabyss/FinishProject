@@ -9,6 +9,7 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
 import com.example.aiy.finishproject.manager.NoteManager;
+import com.example.commonlib.util.LoggerUtils;
 
 import java.util.ArrayList;
 import java.util.List;

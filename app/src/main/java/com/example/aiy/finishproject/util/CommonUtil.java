@@ -16,7 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by sendtion on 2016/3/30.
+ * 通用工具类
+ * Created by Aiy on 2016/3/30.
  */
 public class CommonUtil {
 
@@ -139,7 +140,7 @@ public class CommonUtil {
 
     public static String dataToTimeText(Date date) {
         String strDate = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         strDate = sdf.format(date);
         return strDate;
     }

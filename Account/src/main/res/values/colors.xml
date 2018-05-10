@@ -10,4 +10,6 @@
     <color name="colorBlue">#6991e6</color>
     <color name="colorLightGray">#f0e9e9</color>
     <color name="colorGray">#c1bfbf</color>
+
+    <color name="recycler_item_decription_text_color">#4D4D4D</color>
 </resources>

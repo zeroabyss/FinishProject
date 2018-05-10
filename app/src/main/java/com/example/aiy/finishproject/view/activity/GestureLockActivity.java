@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ import com.example.aiy.finishproject.R;
 import com.example.aiy.finishproject.lock.GestureLockDisplayView;
 import com.example.aiy.finishproject.lock.GestureLockLayout;
 import com.example.aiy.finishproject.lock.JDLockView;
-import com.example.aiy.finishproject.util.LoggerUtils;
+import com.example.commonlib.util.LoggerUtils;
 import com.example.aiy.finishproject.util.SPUtils;
 import com.suke.widget.SwitchButton;
 

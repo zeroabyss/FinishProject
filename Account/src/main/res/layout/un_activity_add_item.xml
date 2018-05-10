@@ -151,17 +151,17 @@
 
             <Button
                 android:id="@+id/three"
-                android:onClick="calculatorNumOnclick"
-                android:layout_toEndOf="@id/two"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_widthPercent="33%"
-                app:layout_heightPercent="25%"
+                android:layout_toEndOf="@id/two"
+                android:background="@drawable/calculator_button"
+                android:fontFamily="sans-serif-light"
+                android:onClick="calculatorNumOnclick"
                 android:text="3"
                 android:textColor="#000"
                 android:textSize="19sp"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/calculator_button"/>
+                app:layout_heightPercent="25%"
+                app:layout_widthPercent="33%"/>
 
             <Button
                 android:id="@+id/four"

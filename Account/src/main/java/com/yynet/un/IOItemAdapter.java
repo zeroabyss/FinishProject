@@ -10,12 +10,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.commonlib.bdasr.Logger;
+import com.example.commonlib.util.LoggerUtils;
 import com.yynet.un.db.AccountDB;
 import com.yynet.un.db.Sum;
 
 import org.litepal.crud.DataSupport;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,8 +34,12 @@ public class IOItemAdapter extends RecyclerView.Adapter<IOItemAdapter.ViewHolder
 
     private List<AccountDB> mAccountDBList;
     private String mDate;
-
+    private IAdapterClick listener;
     public DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private SimpleDateFormat formatSum  = new SimpleDateFormat("yyyy.MM");
+    public void setOnClickListener(IAdapterClick clickListener){
+        this.listener=clickListener;
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         PercentRelativeLayout earnLayout, costLayout;
@@ -74,7 +82,7 @@ public class IOItemAdapter extends RecyclerView.Adapter<IOItemAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        AccountDB accountDB = mAccountDBList.get(position);
+        final AccountDB accountDB = mAccountDBList.get(position);
         showItemDate(holder, accountDB.getTimeStamp());
         // 表示支出的布局
         if (accountDB.getType() == TYPE_COST) {       // -1代表支出
@@ -84,7 +92,8 @@ public class IOItemAdapter extends RecyclerView.Adapter<IOItemAdapter.ViewHolder
             holder.itemImageCost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, "点击了支出");
+                    if (listener!=null)
+                        listener.onClick(accountDB);
                 }
             });
             holder.itemNameCost.setText(accountDB.getName());
@@ -98,7 +107,8 @@ public class IOItemAdapter extends RecyclerView.Adapter<IOItemAdapter.ViewHolder
             holder.itemImageEarn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, "收入");
+                    if (listener!=null)
+                        listener.onClick(accountDB);
                 }
             });
             holder.itemNameEarn.setText(accountDB.getName());
@@ -137,13 +147,16 @@ public class IOItemAdapter extends RecyclerView.Adapter<IOItemAdapter.ViewHolder
         int type = accountDB.getType();
         sum.setTotal(sum.getTotal()- accountDB.getMoney() * type);
         sum.save();
-        // 判断收支类型
-        if (type < 0) month = DataSupport.find(Sum.class, 2);     // 2 代表cost
-        else month = DataSupport.find(Sum.class, 3);              // 3 代表earn
-        month.setTotal(month.getTotal()- accountDB.getMoney());
-        month.save();
+        LoggerUtils.d(accountDB.getTimeStamp().substring(0,7));
+        //如果删除的不是当月的值就不改变当月总值
+        if (accountDB.getTimeStamp().substring(0,7).equals(formatSum.format(new Date()))){
+            // 判断收支类型
+            if (type < 0) month = DataSupport.find(Sum.class, 2);     // 2 代表cost
+            else month = DataSupport.find(Sum.class, 3);              // 3 代表earn
+            month.setTotal(month.getTotal()- accountDB.getMoney());
+            month.save();
+        }
         DataSupport.delete(AccountDB.class, mAccountDBList.get(position).getId());
-
         mAccountDBList.remove(position);
         notifyItemRemoved(position);
     }

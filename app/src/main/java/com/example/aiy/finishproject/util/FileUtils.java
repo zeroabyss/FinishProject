@@ -17,7 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * <p>功能简述：
+ * <p>功能简述：文件相关的工具类
  * <p>Created by Aiy on 2018/4/11.
  */
 

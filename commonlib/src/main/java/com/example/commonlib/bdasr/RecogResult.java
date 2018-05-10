@@ -1,4 +1,4 @@
-package com.example.aiy.finishproject.bdasr;
+package com.example.commonlib.bdasr;
 
 import org.json.JSONArray;
 import org.json.JSONException;

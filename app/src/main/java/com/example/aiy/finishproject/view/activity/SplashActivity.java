@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.aiy.finishproject.Base.BaseActivity;
 import com.example.aiy.finishproject.R;
+import com.example.aiy.finishproject.presenter.SplashPresenter;
 import com.example.aiy.finishproject.util.ActivityUtils;
 import com.example.aiy.finishproject.util.SPUtils;
 
@@ -19,6 +20,7 @@ import javax.crypto.Cipher;
 
 public class SplashActivity extends BaseActivity {
     ImageView mSplash;
+    SplashPresenter presenter=new SplashPresenter();
     /**
      * 变量简述： 是否拥有密码
      */
@@ -32,11 +34,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter.initPresenter(this);
         mSplash=findViewById(R.id.splash_activity_begin);
         Glide.with(this)
                 .load(R.drawable.splash_image)
                 .into(mSplash);
-        hasLockFlag= SPUtils.getBooleanSP(this,GestureLockActivity.HAS_GESTURE_LOCK,false);
+        hasLockFlag= presenter.getLockFlag();
         new Thread(new Runnable() {
             @Override
             public void run() {

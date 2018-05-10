@@ -1,4 +1,4 @@
-package com.example.aiy.finishproject.bdasr;
+package com.example.commonlib.bdasr;
 
 import android.content.Context;
 
@@ -9,6 +9,7 @@ import com.baidu.speech.EventManagerFactory;
 import com.baidu.speech.asr.SpeechConstant;
 
 import org.json.JSONObject;
+
 
 import java.util.Map;
 

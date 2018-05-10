@@ -1,4 +1,4 @@
-package com.example.aiy.finishproject.bdasr;
+package com.example.commonlib.bdasr;
 
 import android.speech.SpeechRecognizer;
 

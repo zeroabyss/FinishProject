@@ -39,7 +39,7 @@
         <ImageView
             android:id="@+id/earn_item_img_main"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             app:layout_widthPercent="8%"
             android:scaleType="fitCenter"
             android:layout_centerHorizontal="true"
@@ -72,7 +72,7 @@
             android:layout_below="@id/earn_item_money_main"
             android:layout_alignEnd="@id/earn_item_money_main"
             android:textSize="13sp"
-            android:textColor="@color/colorLightGray"
+            android:textColor="@color/recycler_item_decription_text_color"
             android:background="@null"/>
 
     </android.support.percent.PercentRelativeLayout>
@@ -86,7 +86,7 @@
         <ImageView
             android:id="@+id/cost_item_img_main"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             app:layout_widthPercent="8%"
             android:scaleType="fitCenter"
             android:layout_centerHorizontal="true"
@@ -119,7 +119,7 @@
             android:layout_below="@id/cost_item_name_main"
             android:layout_alignStart="@id/cost_item_name_main"
             android:textSize="13sp"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/recycler_item_decription_text_color"
             android:background="@null"/>
 
     </android.support.percent.PercentRelativeLayout>

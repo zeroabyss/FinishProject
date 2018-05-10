@@ -43,16 +43,11 @@ dependencies {
     compile 'com.merhold.extensiblepageindicator:extensiblepageindicator:1.0.1'
     compile 'com.android.support:support-v4:25.3.0'
     testCompile 'junit:junit:4.12'
-
+    compile 'com.github.limxing:Android-PromptDialog:1.1.3'
+    implementation project(':commonlib')
 }
-/*
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://localhost/" + "D://zero/")
-            pom.version = '1.0-SNAPSHOT'
-            pom.groupId = 'com.yynet.un'
-            pom.artifactId = 'sdk-zero'
-        }
+repositories {
+    flatDir {
+        dirs 'libs', '../commonlib/libs'
     }
-}*/
+}

@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(exclude: '*.bak', dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -41,10 +41,18 @@ dependencies {
     compile 'com.github.ForgetAll:LoadingDialog:v1.0.4'
     //Alert
     compile 'com.github.limxing:Android-PromptDialog:1.1.3'
-    implementation project(':Account')
+
     //loading progress
     compile 'com.kaopiz:kprogresshud:1.0.2'
     //switch button
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
 
+    implementation project(':Account')
+    implementation project(':commonlib')
+
+}
+repositories {
+    flatDir {
+        dirs 'libs', '../commonlib/libs'
+    }
 }

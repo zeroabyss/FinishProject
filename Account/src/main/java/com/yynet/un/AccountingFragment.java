@@ -212,6 +212,12 @@ public class AccountingFragment extends Fragment {
         layoutManager.setReverseLayout(true);   // 列表反转
         ioItemRecyclerView.setLayoutManager(layoutManager);
         adapter = new IOItemAdapter(accountDBList);
+        adapter.setOnClickListener(new IAdapterClick() {
+            @Override
+            public void onClick(AccountDB db) {
+                AddItemActivity.newInstance(getActivity(),db);
+            }
+        });
         ioItemRecyclerView.setAdapter(adapter);
         itemTouchHelper.attachToRecyclerView(ioItemRecyclerView);
     }

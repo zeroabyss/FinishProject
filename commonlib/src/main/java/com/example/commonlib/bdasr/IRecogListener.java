@@ -1,4 +1,4 @@
-package com.example.aiy.finishproject.bdasr;
+package com.example.commonlib.bdasr;
 
 /**
  * Created by fujiayi on 2017/6/14.

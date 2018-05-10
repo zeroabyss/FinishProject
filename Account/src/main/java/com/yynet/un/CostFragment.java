@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.commonlib.util.LoggerUtils;
 import com.merhold.extensiblepageindicator.ExtensiblePageIndicator;
 import com.yynet.un.db.AccountDB;
 
@@ -26,6 +27,8 @@ import java.util.List;
 
 public class CostFragment extends Fragment {
     //todo 修改此处支出类别
+    private static final String SRC_NAME="src_name";
+    private static final String EDIT_MODEL="edit_model";
     //1.印尼 2.英文 3.中文
    /* private String[] titles = {"Biasa", "Makan", "camilan", "taksi", "Deposito", "Perbelanjaan", "Hiburan", "Perumahan", "Minum", "Belanja online",
             "Sepatu", "Pemeliharaan", "Rias", "Film", "Pengeluaran", "Boros", "Latihan", "Dokter", "Perjalanan", "Pendidikan", "Rokok", "Anggur", "Digital", "Hadiah",
@@ -52,13 +55,29 @@ public class CostFragment extends Fragment {
     private int curIndex = 0;
 
     private static final String TAG = "CostFragment";
+    private boolean isEditModel;
+    public static CostFragment newInstance(String srcName){
+        CostFragment costFragment=new CostFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString(SRC_NAME,srcName);
+        bundle.putBoolean(EDIT_MODEL,true);
+        costFragment.setArguments(bundle);
+        return costFragment;
+    }
+    public static CostFragment newInstance(){
+        CostFragment costFragment=new CostFragment();
+        Bundle bundle=new Bundle();
+        bundle.putBoolean(EDIT_MODEL,false);
+        costFragment.setArguments(bundle);
+        return costFragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: start");
-
+        isEditModel=getArguments().getBoolean(EDIT_MODEL,false);
         // 获得AddItemActivity对应的控件，用来提示已选择的项目类型
         getBannerId();
 
@@ -74,8 +93,16 @@ public class CostFragment extends Fragment {
         // 初始化数据源
         initDatas();
 
-        // 初始化上方banner
-        changeBanner(mDatas.get(0));
+        int position;
+        if (isEditModel){
+            position=subSrcNameToNum(getArguments().getString(SRC_NAME));
+            LoggerUtils.d("banner的位置"+position);
+            changeBanner(mDatas.get(position-1));
+        }else {
+            // 初始化上方banner
+            changeBanner(mDatas.get(0));
+        }
+
 
         // 总的页数=总数/每页数量，并取整
         pageCount = (int) Math.ceil(mDatas.size() * 1.0 / pageSize);
@@ -145,5 +172,10 @@ public class CostFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private int subSrcNameToNum(String srcName){
+        String subString=srcName.substring(9);
+        return Integer.parseInt(subString);
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.example.aiy.finishproject.R;
+import com.example.aiy.finishproject.util.CleanCacheUtils;
 import com.example.aiy.finishproject.view.activity.AboutActivity;
 import com.example.aiy.finishproject.view.activity.GestureLockActivity;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -63,6 +64,7 @@ public class Work_Three extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.work3_clear:
+                CleanCacheUtils.clearAllCache(getActivity());
                 progressDialog = KProgressHUD.create(getActivity())
                         .setMaxProgress(100)
                         .setDetailsLabel("清除缓存中")

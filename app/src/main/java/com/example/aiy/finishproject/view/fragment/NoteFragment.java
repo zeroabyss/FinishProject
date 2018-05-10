@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.aiy.finishproject.Base.BaseFragment;
@@ -23,7 +22,7 @@ import com.example.aiy.finishproject.adapter.my_recycler_adapter.CommonAdapter;
 import com.example.aiy.finishproject.db.NoteDB;
 import com.example.aiy.finishproject.manager.NoteManager;
 import com.example.aiy.finishproject.util.CommonUtil;
-import com.example.aiy.finishproject.util.LoggerUtils;
+import com.example.commonlib.util.LoggerUtils;
 import com.example.aiy.finishproject.view.activity.NoteAddActivity;
 
 import org.litepal.LitePal;

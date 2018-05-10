@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.commonlib.util.LoggerUtils;
 import com.merhold.extensiblepageindicator.ExtensiblePageIndicator;
 import com.yynet.un.db.AccountDB;
 
@@ -24,13 +25,13 @@ import java.util.List;
 
 
 public class EarnFragment extends Fragment {
+
     //todo 收入类别
     //1.印尼 2.英文 3.中文
    /* private String[] titles = {"Biasa", "Upah", "Bonus", "Paruh waktu", "Bonus", "Uang kecil", "Asuransi", "Investasi", "Devisa", "Biaya hidup",
             "windfall", "Dividen", "Bisnis"};*/
    /*private String[] titles = {"Ordinary","Wage", "Bonus", "Part time","Bonus", "Small change", "Insurance","Investation", "Foreign exchange","Cost of living","windfall","Dividend","Business"};*/
-    private String[] titles = {"一般", "工资", "红包", "兼职", "奖金", "零花钱", "保险", "投资", "外汇", "生活费",
-            "意外收获", "分红", "生意"};
+    private String[] titles = {"一般", "工资", "红包", "兼职", "奖金", "零花钱", "保险", "投资","外汇", "生活费", "意外收获", "分红", "生意"};
     private ViewPager mPager;
     private List<View> mPagerList;
     private List<AccountDB> mDatas;
@@ -47,23 +48,31 @@ public class EarnFragment extends Fragment {
 
     // 当前显示的是第几页
     private int curIndex = 0;
-
+    private static final String SRC_NAME="src_name";
+    private static final String EDIT_MODEL="edit_model";
+    private boolean isEditModel;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         getBannerId();
-
+        isEditModel=getArguments().getBoolean(EDIT_MODEL,false);
         View view = inflater.inflate(R.layout.un_earn_fragment, container, false);
-
         mPager = (ViewPager) view.findViewById(R.id.viewpager_2);
         extensiblePageIndicator = (ExtensiblePageIndicator) view.findViewById(R.id.ll_dot_2);
 
         // 初始化数据源
         initDatas();
 
-        // 初始化上方banner
-        changeBanner(mDatas.get(0));
+        int position;
+        if (isEditModel){
+            position=subSrcNameToNum(getArguments().getString(SRC_NAME));
+            LoggerUtils.d("banner的位置"+position);
+            changeBanner(mDatas.get(position-1));
+        }else {
+            // 初始化上方banner
+            changeBanner(mDatas.get(0));
+        }
 
         // 总的页数=总数/每页数量，并取整
         pageCount = (int) Math.ceil(mDatas.size() * 1.0 / pageSize);
@@ -90,7 +99,21 @@ public class EarnFragment extends Fragment {
 
         return view;
     }
-
+    public static EarnFragment newInstance(String srcName){
+        EarnFragment earnFragment=new EarnFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString(SRC_NAME,srcName);
+        bundle.putBoolean(EDIT_MODEL,true);
+        earnFragment.setArguments(bundle);
+        return earnFragment;
+    }
+    public static EarnFragment newInstance(){
+        EarnFragment earnFragment=new EarnFragment();
+        Bundle bundle=new Bundle();
+        bundle.putBoolean(EDIT_MODEL,false);
+        earnFragment.setArguments(bundle);
+        return earnFragment;
+    }
     // 初始化数据源
     private void initDatas() {
         mDatas = new ArrayList<AccountDB>();
@@ -130,5 +153,9 @@ public class EarnFragment extends Fragment {
             }
         });
 
+    }
+    private int subSrcNameToNum(String srcName){
+        String subString=srcName.substring(10);
+        return Integer.parseInt(subString);
     }
 }

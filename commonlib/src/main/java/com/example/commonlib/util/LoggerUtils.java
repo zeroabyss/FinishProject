@@ -1,4 +1,4 @@
-package com.example.aiy.finishproject.util;
+package com.example.commonlib.util;
 
 import android.util.Log;
 

@@ -12,7 +12,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+/**
+ *任务描述： 外存相关的工具类
+ *创建时间： 2018/5/10 15:07
+ */
 public class SDCardUtil {
 	public static String SDCardRoot = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
 	public static String APP_NAME = "FinishProject";
