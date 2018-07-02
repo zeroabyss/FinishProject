@@ -491,11 +491,9 @@ public class NoteAddActivity extends BaseActivity implements OnClickListener{
         switch (id){
             case R.id.add_bold:
                 setBold(view);
-                startASR();
                 break;
             case R.id.add_italic:
                 setItalic(view);
-                stopASR();
                 break;
             case R.id.add_quote:
                 setQuote(view);
